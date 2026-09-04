@@ -137,7 +137,7 @@ html[data-theme="dark"] .theme-btn .icon-moon{display:block}
 /* Hero */
 .hero{
   display:grid;gap:clamp(28px, 6vw, 40px);align-items:center;
-  padding:var(--section-y) 0 calc(var(--section-y) * .8);
+  padding-top:var(--section-y);padding-bottom:calc(var(--section-y) * .8);
 }
 .hero > *{min-width:0}
 .hero h1{
@@ -196,7 +196,7 @@ html[data-theme="dark"] .theme-btn .icon-moon{display:block}
 }
 
 /* Section head */
-.section{padding:var(--section-y) 0}
+.section{padding-top:var(--section-y);padding-bottom:var(--section-y)}
 .section-head{text-align:center;max-width:640px;margin:0 auto}
 .section-head h2{margin:0;font-size:clamp(26px, 4vw, 34px);font-weight:600;letter-spacing:-.02em}
 .section-head p{margin:8px 0 0;color:var(--muted);font-size:15px;line-height:1.6}
