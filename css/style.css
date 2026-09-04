@@ -185,6 +185,91 @@ html[data-theme="dark"] .theme-btn .icon-moon{display:block}
   .hero-img-wrap--transparent img{animation:none;translate:none}
 }
 .divider{height:1px;background:var(--border)}
+
+/* Armado animado del bidón (scroll-scrubbed, foto real descompuesta en piezas) */
+.assembly-wrap{overflow-x:clip}
+.assembly-stage{position:static;height:auto;padding:32px 0}
+.assembly-inner{display:flex;justify-content:center}
+.assembly-visual{
+  position:relative;width:min(240px, 62vw);aspect-ratio:1160/1355;
+}
+.assembly-photo,.assembly-ghost,.assembly-body,.assembly-cap,.assembly-tap{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:contain;
+}
+.assembly-photo{opacity:1}
+.assembly-ghost,.assembly-body,.assembly-cap,.assembly-tap,.assembly-drops{display:none}
+
+/* Estado activo: JS agrega .is-active cuando puede controlar el scroll-scrub */
+.assembly-wrap.is-active .assembly-photo{display:none}
+.assembly-wrap.is-active .assembly-ghost,
+.assembly-wrap.is-active .assembly-body,
+.assembly-wrap.is-active .assembly-cap,
+.assembly-wrap.is-active .assembly-tap{display:block}
+.assembly-wrap.is-active{height:220vh}
+.assembly-wrap.is-active .assembly-stage{
+  position:sticky;top:var(--header-h);height:calc(100vh - var(--header-h));
+  display:flex;align-items:center;justify-content:center;padding:0;
+}
+
+.assembly-ghost{filter:grayscale(.85) brightness(1.5) opacity(.4)}
+.assembly-body{
+  mask-image:url(#assemblyMask);-webkit-mask-image:url(#assemblyMask);
+  mask-repeat:no-repeat;-webkit-mask-repeat:no-repeat;
+  mask-size:100% 100%;-webkit-mask-size:100% 100%;
+  clip-path:inset(calc(100% - var(--fill, 0) * 100%) 0 0 0);
+}
+.assembly-cap{
+  clip-path:inset(0 0 85.5% 0);
+  opacity:0;transform:translateY(-18%);
+  transition:opacity .45s ease,transform .45s ease;
+}
+.assembly-wrap.is-active .assembly-stage.show-cap .assembly-cap{opacity:1;transform:translateY(0)}
+.assembly-tap{
+  clip-path:inset(79% 40% 5% 38%);
+  opacity:0;transform:translateY(6%);
+  transition:opacity .4s ease,transform .4s ease;
+}
+.assembly-wrap.is-active .assembly-stage.show-tap .assembly-tap{opacity:1;transform:translateY(0)}
+
+/* Gotas cayendo (decorativas, no forman parte de la foto) */
+.assembly-drops{
+  position:absolute;top:-4%;left:50%;transform:translateX(-50%);
+  width:40px;height:60px;opacity:0;transition:opacity .3s ease;pointer-events:none;
+}
+.assembly-wrap.is-active .assembly-stage.show-drops .assembly-drops{opacity:1}
+.assembly-drops span{
+  position:absolute;top:0;width:7px;height:7px;border-radius:50%;
+  background:var(--blue-accent);opacity:0;
+  animation:assembly-drop 1.3s ease-in infinite;
+}
+.assembly-drops span:nth-child(1){left:6px}
+.assembly-drops span:nth-child(2){left:18px;animation-delay:.3s}
+.assembly-drops span:nth-child(3){left:30px;animation-delay:.6s}
+@keyframes assembly-drop{
+  0%{transform:translateY(0);opacity:0}
+  15%{opacity:1}
+  80%{opacity:1}
+  100%{transform:translateY(50px);opacity:0}
+}
+
+@media(min-width:768px){
+  .assembly-wrap.is-active{height:280vh}
+}
+@media(min-width:1024px){
+  .assembly-wrap.is-active{height:320vh}
+  .assembly-visual{width:min(340px, 30vw)}
+}
+@media(prefers-reduced-motion:reduce){
+  .assembly-wrap.is-active{height:auto}
+  .assembly-wrap.is-active .assembly-stage{position:static;height:auto;padding:32px 0}
+  .assembly-wrap.is-active .assembly-photo{display:block;opacity:1}
+  .assembly-wrap.is-active .assembly-ghost,
+  .assembly-wrap.is-active .assembly-body,
+  .assembly-wrap.is-active .assembly-cap,
+  .assembly-wrap.is-active .assembly-tap,
+  .assembly-wrap.is-active .assembly-drops{display:none}
+}
+
 @media(min-width:1024px){
   .hero{grid-template-columns:1.05fr 1fr}
   .hero-img-wrap{aspect-ratio:4/3.2;padding:32px}
