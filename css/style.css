@@ -209,13 +209,18 @@ html[data-theme="dark"] .theme-btn .icon-moon{display:block}
 /* Single product - friendly protagonista */
 .single-product{
   display:grid;gap:28px;align-items:center;
-  max-width:920px;margin:40px auto 0;
+  margin:40px 0 0;
   border:1px solid var(--border-strong);border-radius:var(--radius-xl);
   background:#fff;padding:22px;
   box-shadow:0 10px 36px rgba(14,77,164,.06);
 }
 @media(min-width:860px){
   .single-product{grid-template-columns:1.05fr 1fr;gap:32px;padding:28px}
+}
+@media(min-width:1024px){
+  .single-product{grid-template-columns:1fr 1fr;gap:48px;padding:40px}
+  .single-product-img{padding:32px}
+  .single-product-img img{max-width:420px}
 }
 .single-product-img{
   position:relative;display:grid;place-items:center;
